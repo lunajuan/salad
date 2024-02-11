@@ -1,8 +1,8 @@
 .container {
   display: flex;
   flex-wrap: wrap;
-  padding: var(--size-2);
   gap: var(--size-4);
+  justify-content: center;
 }
 
 .section {
