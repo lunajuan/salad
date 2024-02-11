@@ -12,12 +12,26 @@ const saladData = {
   protein: {
     name: 'Protein',
     options: [
-      'roated chicken',
+      'roasted chicken',
       'salami',
       'bacon',
       'ham',
-      // 'tuna',
       'salmon',
+    ]
+  },
+  oomph: {
+    name: 'Oomph',
+    options: [
+      'sweet potatoes',
+      'hard boiled eggs',
+      'pumpkin seeds',
+      'sunflower seeds',
+      'quinoa',
+      'sorghum',
+      'garbanzo beans',
+      'avacado',
+      'lentils',
+      'roasted squash',
     ]
   },
   fruit: {
@@ -65,11 +79,11 @@ const saladData = {
   dressing: {
     name: 'Dressing',
     options: [
-      'Mia dill',
-      'Green goddess',
-      'Classic',
-      'Blue Cheese',
-      'Ranch',
+      'mia dill',
+      'green goddess',
+      'classic',
+      'blue Cheese',
+      'ranch',
     ]
   }
 }
