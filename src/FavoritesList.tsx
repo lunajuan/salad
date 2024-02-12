@@ -1,8 +1,11 @@
 import Salad from "./Salad";
-import { useFavoriteSalads } from "./hooks";
+import { useCopySaladToClipboard, useFavoriteSalads } from "./hooks";
 
 export default function FavoritesList() {
   const { favoriteSalads, remove } = useFavoriteSalads();
+  const {copySaladToClipboard} = useCopySaladToClipboard()
+
+
   const onRemove = ({ saladId }: { saladId: string }) => {
     const isConfirmed = confirm(
       "Are you sure you want to remove this salad from your favorites?"
@@ -18,6 +21,7 @@ export default function FavoritesList() {
           <li key={saladId}>
             <Salad salad={salad} />
             <button onClick={() => onRemove({ saladId })}>remove</button>
+            <button onClick={() => copySaladToClipboard({salad})}>Copy</button>
           </li>
         );
       })}

@@ -1,7 +1,7 @@
 import createPersistedState from "use-persisted-state";
 import { SaladChoice } from "./type";
 import { v4 as uuid } from "uuid";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 const GENERATE_HISTORY_KEY = "generate-history";
 const GENERATE_HISTORY_LIMIT = 50;
@@ -66,7 +66,7 @@ export function useFavoriteSalads() {
     }
     const id = uuid();
     updatedFavorites[id] = salad;
-    setFavorite(updatedFavorites)
+    setFavorite(updatedFavorites);
   };
 
   const remove = ({ saladId }: { saladId: string }) => {
@@ -79,4 +79,40 @@ export function useFavoriteSalads() {
   };
 
   return { add, remove, favoriteSalads };
+}
+
+export function useCopyToClipboard() {
+  const [copiedText, setCopiedText] = useState<string | null>(null);
+
+  const copy = useCallback(async (text: string) => {
+    if (!navigator?.clipboard) {
+      console.warn("Clipboard not supported");
+      return false;
+    }
+
+    // Try to save to clipboard then save it in the state if worked
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopiedText(text);
+      return true;
+    } catch (error) {
+      console.warn("Copy failed", error);
+      setCopiedText(null);
+      return false;
+    }
+  }, []);
+
+  return { copiedText, copy };
+}
+
+export function useCopySaladToClipboard() {
+  const { copy } = useCopyToClipboard();
+  const copySaladToClipboard = ({ salad }: { salad: SaladChoice[] }) => {
+    const saladText = salad.reduce((str, { category, value }) => {
+      return str + `${category}: ${value}\n`;
+    }, "");
+    copy(saladText);
+  };
+
+  return { copySaladToClipboard };
 }
