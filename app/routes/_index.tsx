@@ -31,10 +31,7 @@ export default function Index() {
   const saladData = useLoaderData<typeof loader>();
 
   return (
-    <div
-      className="main"
-      style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}
-    >
+    <div>
       <div className="main-section">
         <h2>Create a Salad</h2>
         <SaladGenerator saladData={saladData} />

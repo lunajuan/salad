@@ -9,12 +9,12 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import globalStyles from "../src/global.css";
-import TopNavBar, {links as topNavbarLinks} from "src/TopNavbar";
+import TopNavBar, { links as topNavbarLinks } from "src/TopNavbar";
 
 export const links: LinksFunction = () => [
   ...(cssBundleHref
     ? [{ rel: "stylesheet", href: cssBundleHref }]
-    : [{ rel: "stylesheet", href: globalStyles }, ...topNavbarLinks() ]),
+    : [{ rel: "stylesheet", href: globalStyles }, ...topNavbarLinks()]),
 ];
 
 export default function App() {
@@ -28,10 +28,12 @@ export default function App() {
       </head>
       <body>
         <TopNavBar />
-        <Outlet />
-        <ScrollRestoration />
-        <Scripts />
-        <LiveReload />
+        <div className="main">
+          <Outlet />
+          <ScrollRestoration />
+          <Scripts />
+          <LiveReload />
+        </div>
       </body>
     </html>
   );
