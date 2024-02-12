@@ -4,9 +4,14 @@ import { randomInt } from "./utils";
 import { LinksFunction } from "@remix-run/node";
 import styles from "./saladGenerator.css";
 import { SaladChoice, SaladIngredientsData } from "./type";
-import { useCopySaladToClipboard, useFavoriteSalads, useGenerateHistory } from "./hooks";
+import {
+  useCopySaladToClipboard,
+  useFavoriteSalads,
+  useGenerateHistory,
+} from "./hooks";
+import Salad, {links as saladLinks} from "./Salad";
 
-export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
+export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }, ...saladLinks()];
 
 type Props = {
   saladData: SaladIngredientsData;
@@ -25,12 +30,12 @@ export default function SaladGenerator({ saladData }: Props) {
   const salad = generateHistory[currentIndex];
   const [, setIsGenerating] = useState(false);
   const { add: addToFavorites } = useFavoriteSalads();
-  const {copySaladToClipboard} = useCopySaladToClipboard()
+  const { copySaladToClipboard } = useCopySaladToClipboard();
 
   const onCopySalad = () => {
-    if (!salad) return
-    copySaladToClipboard({salad})
-  }
+    if (!salad) return;
+    copySaladToClipboard({ salad });
+  };
 
   const onAddToFavorites = () => {
     if (!salad) return;
@@ -56,17 +61,7 @@ export default function SaladGenerator({ saladData }: Props) {
 
   return (
     <div className="generate-section">
-      {salad && (
-        <ul className="salad-list">
-          {salad.map(({ category, value }) => {
-            return (
-              <li key={category}>
-                {category}: <b>{value}</b>
-              </li>
-            );
-          })}
-        </ul>
-      )}
+      {salad && <Salad salad={salad} />}
       <div>
         {generateHistory ? (
           <p>
@@ -81,7 +76,9 @@ export default function SaladGenerator({ saladData }: Props) {
         <button onClick={goForward} disabled={!canGoForward}>
           forward
         </button>
-        <button onClick={onCopySalad} disabled={!salad}>Copy</button>
+        <button onClick={onCopySalad} disabled={!salad}>
+          Copy
+        </button>
         <button onClick={onAddToFavorites} disabled={!salad}>
           Add to favorites
         </button>

@@ -1,6 +1,5 @@
 .top-nav-bar {
   padding: var(--size-3) var(--size-4);
-  background-color: pink;
 }
 
 .nav-links {
@@ -15,5 +14,4 @@
 
 .nav-link.active {
   background-color: aquamarine;
-
 }

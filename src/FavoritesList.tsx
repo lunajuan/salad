@@ -1,5 +1,9 @@
-import Salad from "./Salad";
+import { LinksFunction } from "@remix-run/node";
+import Salad, {links as saladLinks} from "./Salad";
 import { useCopySaladToClipboard, useFavoriteSalads } from "./hooks";
+import styles from './favoritesList.css'
+
+export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }, ...saladLinks()];
 
 export default function FavoritesList() {
   const { favoriteSalads, remove } = useFavoriteSalads();
@@ -15,7 +19,7 @@ export default function FavoritesList() {
   };
 
   return (
-    <ul>
+    <ul className="favorites-list">
       {Object.entries(favoriteSalads).map(([saladId, salad]) => {
         return (
           <li key={saladId}>

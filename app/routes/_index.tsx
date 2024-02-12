@@ -8,12 +8,10 @@ import SaladGenerator, {
   links as saladGeneratorLinks,
 } from "src/SaladGenerator";
 import saladData from "src/salad-data";
-import styles from "src/index.css";
 
 export const links: LinksFunction = () => [
   ...ingredientsSectionlinks(),
   ...saladGeneratorLinks(),
-  { rel: "stylesheet", href: styles },
 ];
 
 export const loader = async () => {
