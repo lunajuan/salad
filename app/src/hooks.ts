@@ -116,3 +116,10 @@ export function useCopySaladToClipboard() {
 
   return { copySaladToClipboard };
 }
+
+enum Theme {
+  Light= 'light',
+  Dark= 'dark',
+  Dim= 'dim',
+  Grape= 'grape'
+}
