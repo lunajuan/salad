@@ -3,11 +3,11 @@ import { useLoaderData } from "@remix-run/react";
 import { LinksFunction } from "@remix-run/react/dist/routeModules";
 import IngredientsSection, {
   links as ingredientsSectionlinks,
-} from "src/IngredientsSection";
+} from "~/src/IngredientsSection";
 import SaladGenerator, {
   links as saladGeneratorLinks,
-} from "src/SaladGenerator";
-import saladData from "src/salad-data";
+} from "~/src/SaladGenerator";
+import saladData from "~/src/salad-data";
 
 export const links: LinksFunction = () => [
   ...ingredientsSectionlinks(),

@@ -1,5 +1,5 @@
 import { LinksFunction } from "@remix-run/node";
-import FavoritesList, {links as favoritesLinks} from "src/FavoritesList";
+import FavoritesList, {links as favoritesLinks} from "~/src/FavoritesList";
 
 export const links: LinksFunction = () => [...favoritesLinks()];
 

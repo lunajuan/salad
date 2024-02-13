@@ -8,8 +8,8 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
-import globalStyles from "../src/global.css";
-import TopNavBar, { links as topNavbarLinks } from "src/TopNavbar";
+import globalStyles from "./src/global.css";
+import TopNavBar, { links as topNavbarLinks } from "~/src/TopNavbar";
 
 export const links: LinksFunction = () => [
   ...(cssBundleHref
