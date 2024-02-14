@@ -9,9 +9,15 @@ import {
   useFavoriteSalads,
   useGenerateHistory,
 } from "./hooks";
-import Salad, {links as saladLinks} from "./Salad";
+import SaladCard, {
+  CardButtonsContainer,
+  links as saladCardLinks,
+} from "./SaladCard";
 
-export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }, ...saladLinks()];
+export const links: LinksFunction = () => [
+  { rel: "stylesheet", href: styles },
+  ...saladCardLinks(),
+];
 
 type Props = {
   saladData: SaladIngredientsData;
@@ -61,31 +67,38 @@ export default function SaladGenerator({ saladData }: Props) {
 
   return (
     <div className="generate-section">
-      {salad && <Salad salad={salad} />}
-      <div>
-        {generateHistory ? (
+      {salad && (
+        <SaladCard salad={salad}>
+          <CardButtonsContainer>
+            <button onClick={onCopySalad} disabled={!salad}>
+              Copy
+            </button>
+            <button onClick={onAddToFavorites} disabled={!salad}>
+            <span className="generate-button-icon">⭐️</span> Add to favorites
+            </button>
+          </CardButtonsContainer>
+        </SaladCard>
+      )}
+      <button className="generate-button" onClick={onGenerateSalad}>
+        <span className="generate-button-icon">🦹</span>Generate
+      </button>
+      {generateHistory ? (
+        <div className="generate-history">
           <p>
             history item {currentIndex + 1}/{generateHistory.length}
           </p>
-        ) : (
-          <p>no history yet</p>
-        )}
-        <button onClick={goBack} disabled={!canGoBack}>
-          back
-        </button>
-        <button onClick={goForward} disabled={!canGoForward}>
-          forward
-        </button>
-        <button onClick={onCopySalad} disabled={!salad}>
-          Copy
-        </button>
-        <button onClick={onAddToFavorites} disabled={!salad}>
-          Add to favorites
-        </button>
-      </div>
-      <button className="generate-button" onClick={onGenerateSalad}>
-        Generate
-      </button>
+          <div className="generate-history-buttons">
+            <button onClick={goBack} disabled={!canGoBack}>
+              back
+            </button>
+            <button onClick={goForward} disabled={!canGoForward}>
+              forward
+            </button>
+          </div>
+        </div>
+      ) : (
+        <p>no history yet</p>
+      )}
     </div>
   );
 }

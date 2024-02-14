@@ -31,7 +31,7 @@ export default function Index() {
   return (
     <div>
       <div className="main-section">
-        <h2>Create a Salad</h2>
+        <h2 className="heading">Create a Salad</h2>
         <SaladGenerator saladData={saladData} />
       </div>
       <div className="main-section">

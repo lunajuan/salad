@@ -1,9 +1,26 @@
 .generate-button {
-  margin-top: var(--size-3);
+  margin: var(--size-3) 0 var(--size-6);
 }
 
 .generate-section {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+}
+
+.generate-history {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--size-2)
+}
+
+.generate-history-buttons {
+  display: flex;
+  gap: var(--size-3);
+}
+
+.generate-button-icon {
+  font-size: var(--size-5);
 }
