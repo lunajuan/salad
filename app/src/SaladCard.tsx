@@ -1,6 +1,6 @@
 import { LinksFunction } from "@remix-run/node";
 import styles from "./saladCard.css";
-import { SaladChoice } from "./type";
+import { Salad as SaladType } from "./type";
 import { PropsWithChildren } from "react";
 import Salad, { links as saladLinks } from "./Salad";
 
@@ -10,7 +10,7 @@ export const links: LinksFunction = () => [
 ];
 
 type Props = {
-  salad: SaladChoice[];
+  salad: SaladType;
 };
 export default function SaladCard({
   salad,

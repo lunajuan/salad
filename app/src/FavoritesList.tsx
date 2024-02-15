@@ -25,12 +25,12 @@ export default function FavoritesList() {
 
   return (
     <ul className="favorites-list">
-      {Object.entries(favoriteSalads).map(([saladId, salad]) => {
+      {!!favoriteSalads?.length && favoriteSalads.map((salad) => {
         return (
-          <li key={saladId}>
+          <li key={salad.id}>
             <SaladCard salad={salad}>
               <CardButtonsContainer>
-                <button onClick={() => onRemove({ saladId })}>🗑️ remove</button>
+                <button onClick={() => onRemove({ saladId: salad.id })}>🗑️ remove</button>
                 <button onClick={() => copySaladToClipboard({ salad })}>
                   Copy
                 </button>

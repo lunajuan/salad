@@ -19,7 +19,7 @@ export default function TopNavBar() {
           <Link to="/">Home</Link>
         </li>
         <li className={`nav-link${currentRoute === '/favorites' ? ' active' : ''}`}>
-          <Link to="/favorites">{Object.values(favoriteSalads).length} Favorites</Link>
+          <Link to="/favorites">{favoriteSalads?.length ? ` ${favoriteSalads.length}` : ''}Favorites</Link>
         </li>
       </ul>
     </nav>

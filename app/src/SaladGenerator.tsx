@@ -13,6 +13,7 @@ import SaladCard, {
   CardButtonsContainer,
   links as saladCardLinks,
 } from "./SaladCard";
+import { v4 as uuid } from "uuid";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: styles },
@@ -33,10 +34,15 @@ export default function SaladGenerator({ saladData }: Props) {
     goForward,
     currentIndex,
   } = useGenerateHistory();
-  const salad = generateHistory[currentIndex];
+  const salad = generateHistory?.[currentIndex];
   const [, setIsGenerating] = useState(false);
-  const { add: addToFavorites } = useFavoriteSalads();
+  const { add: addToFavorites, favoriteSalads } = useFavoriteSalads();
   const { copySaladToClipboard } = useCopySaladToClipboard();
+
+  const isSaladFavorited =
+  favoriteSalads && salad
+  ? favoriteSalads?.some((favorite) => favorite.id === salad.id)
+  : false;
 
   const onCopySalad = () => {
     if (!salad) return;
@@ -44,7 +50,7 @@ export default function SaladGenerator({ saladData }: Props) {
   };
 
   const onAddToFavorites = () => {
-    if (!salad) return;
+    if (!salad || isSaladFavorited) return;
     addToFavorites({ salad });
   };
 
@@ -60,7 +66,7 @@ export default function SaladGenerator({ saladData }: Props) {
   };
 
   useEffect(() => {
-    if (!generateHistory.length) {
+    if (!generateHistory?.length) {
       onGenerateSalad();
     }
   }, []);
@@ -70,11 +76,12 @@ export default function SaladGenerator({ saladData }: Props) {
       {salad && (
         <SaladCard salad={salad}>
           <CardButtonsContainer>
-            <button onClick={onCopySalad} disabled={!salad}>
+            <button onClick={onCopySalad}>
               Copy
             </button>
-            <button onClick={onAddToFavorites} disabled={!salad}>
-            <span className="generate-button-icon">⭐️</span> Add to favorites
+            <button onClick={onAddToFavorites} disabled={isSaladFavorited}>
+              <span className="generate-button-icon"> ⭐️</span> Add to
+              favorites
             </button>
           </CardButtonsContainer>
         </SaladCard>
@@ -105,12 +112,13 @@ export default function SaladGenerator({ saladData }: Props) {
 
 function generateSalad({ data }: { data: typeof saladData }) {
   try {
-    const salad = Object.values(data).reduce((final, { name, options }) => {
+    const choices = Object.values(data).reduce((final, { name, options }) => {
       const randomChoiceIndex = randomInt(0, options.length - 1);
       const choice = options[randomChoiceIndex];
       final.push({ category: name, value: choice });
       return final;
     }, [] as SaladChoice[]);
+    const salad = { id: uuid(), choices };
     return salad;
   } catch (error) {
     alert("error generating salad");
