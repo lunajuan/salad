@@ -8,17 +8,18 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
-import globalStyles from "../src/global.css";
+import globalStyles from "./src/global.css";
+import TopNavBar, { links as topNavbarLinks } from "~/src/TopNavbar";
 
 export const links: LinksFunction = () => [
   ...(cssBundleHref
     ? [{ rel: "stylesheet", href: cssBundleHref }]
-    : [{ rel: "stylesheet", href: globalStyles }]),
+    : [{ rel: "stylesheet", href: globalStyles }, ...topNavbarLinks()]),
 ];
 
 export default function App() {
   return (
-    <html lang="en">
+    <html lang="en" color-scheme="grape">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -26,10 +27,13 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Outlet />
-        <ScrollRestoration />
-        <Scripts />
-        <LiveReload />
+        <TopNavBar />
+        <div className="main">
+          <Outlet />
+          <ScrollRestoration />
+          <Scripts />
+          <LiveReload />
+        </div>
       </body>
     </html>
   );

@@ -1,0 +1,9 @@
+.salad-choices {
+  padding: 0;
+  list-style-type: none;
+}
+
+.salad-choices li {
+  padding: 0;
+  text-align: center;
+}

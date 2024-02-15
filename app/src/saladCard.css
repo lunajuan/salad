@@ -1,0 +1,18 @@
+.salad-card {
+  background-color: var(--surface-2);
+  padding: var(--size-3) var(--size-4);
+  border-radius: var(--radius-3);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--size-3);
+  width: 100%;
+  max-width: var(--size-xs);
+  flex: 1;
+}
+
+.salad-card-buttons {
+  display: flex;
+  justify-content: center;
+  gap: var(--size-4);
+}

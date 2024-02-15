@@ -3,17 +3,15 @@ import { useLoaderData } from "@remix-run/react";
 import { LinksFunction } from "@remix-run/react/dist/routeModules";
 import IngredientsSection, {
   links as ingredientsSectionlinks,
-} from "src/IngredientsSection";
+} from "~/src/IngredientsSection";
 import SaladGenerator, {
   links as saladGeneratorLinks,
-} from "src/SaladGenerator";
-import saladData from "src/salad-data";
-import styles from "src/index.css";
+} from "~/src/SaladGenerator";
+import saladData from "~/src/salad-data";
 
 export const links: LinksFunction = () => [
   ...ingredientsSectionlinks(),
   ...saladGeneratorLinks(),
-  { rel: "stylesheet", href: styles },
 ];
 
 export const loader = async () => {
@@ -31,12 +29,9 @@ export default function Index() {
   const saladData = useLoaderData<typeof loader>();
 
   return (
-    <div
-      className="main"
-      style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}
-    >
+    <div>
       <div className="main-section">
-        <h2>Create a Salad</h2>
+        <h2 className="heading">Create a Salad</h2>
         <SaladGenerator saladData={saladData} />
       </div>
       <div className="main-section">
