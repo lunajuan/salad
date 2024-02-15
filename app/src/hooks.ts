@@ -1,17 +1,13 @@
-import createPersistedState from "use-persisted-state";
+import useLocalStorageState from 'use-local-storage-state'
 import { Salad } from "./type";
 import { useCallback, useState } from "react";
 
 const GENERATE_HISTORY_KEY = "generate-history";
 const GENERATE_HISTORY_LIMIT = 50;
 
-const useLocalGenerateHistory = createPersistedState<Salad[] | undefined>(
-  GENERATE_HISTORY_KEY
-);
-
 export function useGenerateHistory() {
   const [generateHistory, setGenerateHistory] =
-    useLocalGenerateHistory(undefined);
+    useLocalStorageState<Salad[] | undefined>(GENERATE_HISTORY_KEY, undefined);
   const [currentIndex, setCurrentIndex] = useState(
     generateHistory ? generateHistory.length - 1 : 0
   );
@@ -55,12 +51,8 @@ export function useGenerateHistory() {
 const FAVORITE_SALADS_KEY = "favorite-salads";
 const FAVORITE_SALADS_LIMIT = 100;
 
-const useLocalFavoriteSalads = createPersistedState<Salad[] | undefined>(
-  FAVORITE_SALADS_KEY
-);
-
 export function useFavoriteSalads() {
-  const [favoriteSalads, setFavorite] = useLocalFavoriteSalads();
+  const [favoriteSalads, setFavorite] = useLocalStorageState<Salad[] | undefined>(FAVORITE_SALADS_KEY, undefined);
 
   const add = ({ salad }: { salad: Salad }) => {
     const updatedFavorites = [ ...(favoriteSalads || []) ];
