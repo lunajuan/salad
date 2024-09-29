@@ -52,22 +52,15 @@ function scrapeProductData() {
       }
     }
 
-    // const pricePerLb = product.querySelector('.a-size-small.a-color-tertiary').textContent.trim();
-    // const totalPrice = product.querySelector('#' + product.id + '-item-total-price').textContent.trim();
-    // const adjustedWeight = product.querySelector('.ufpo-item-status span').textContent.trim();
-
     productData.push(newProduct);
   });
 
-  console.log(productData); // For debugging, see the scraped data in the console
-
-  // Optional: Trigger a download of the scraped data as a JSON file
-  // const jsonData = JSON.stringify(productData, null, 2);
-  // const blob = new Blob([jsonData], { type: 'application/json' });
-  // const link = document.createElement('a');
-  // link.href = URL.createObjectURL(blob);
-  // link.download = 'products.json';
-  // link.click();
+  const jsonData = JSON.stringify(productData, null, 2);
+  const blob = new Blob([jsonData], { type: 'application/json' });
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = 'products.json';
+  link.click();
 
   function extractPricePerUnit(text) {
     // Use a regular expression to match the price and the unit
