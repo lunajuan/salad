@@ -1,10 +1,9 @@
-import prisma  from "../../prisma/prisma";
 import { json } from "@remix-run/node";
 import ProductsPage from "../src/ProductsPage";
+import data from "../../data/data.json";
 
 async function getProducts() {
-  const products = await prisma.product.findMany();
-  return products;
+  return data;
 }
 
 export type ProductLoader = typeof loader;

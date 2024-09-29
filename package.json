@@ -12,7 +12,7 @@
     "prisma:push": "prisma db push",
     "prisma:generate": "prisma generate",
     "upload:products": "node scripts/upload-products.js",
-    "postinstall": "npm run prisma:generate"
+    "export:data": "node scripts/export-data.js"
   },
   "dependencies": {
     "@prisma/client": "^5.20.0",
