@@ -4,14 +4,15 @@
   "sideEffects": false,
   "type": "module",
   "scripts": {
-    "build": "remix build",
+    "build": "prisma generate && remix build",
     "dev": "remix dev --manual",
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
     "start": "remix-serve ./build/index.js",
     "typecheck": "tsc",
     "prisma:push": "prisma db push",
     "prisma:generate": "prisma generate",
-    "upload:products": "node scripts/upload-products.js"
+    "upload:products": "node scripts/upload-products.js",
+    "postinstall": "npm run prisma:generate"
   },
   "dependencies": {
     "@prisma/client": "^5.20.0",
