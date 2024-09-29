@@ -1,43 +1,19 @@
-import { json, type MetaFunction } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
-import { LinksFunction } from "@remix-run/react/dist/routeModules";
-import IngredientsSection, {
-  links as ingredientsSectionlinks,
-} from "~/src/IngredientsSection";
-import SaladGenerator, {
-  links as saladGeneratorLinks,
-} from "~/src/SaladGenerator";
-import saladData from "~/src/salad-data";
+import prisma  from "../../prisma/prisma";
+import { json } from "@remix-run/node";
+import ProductsPage from "../src/ProductsPage";
 
-export const links: LinksFunction = () => [
-  ...ingredientsSectionlinks(),
-  ...saladGeneratorLinks(),
-];
+async function getProducts() {
+  const products = await prisma.product.findMany();
+  return products;
+}
 
-export const loader = async () => {
-  return json(saladData);
-};
+export type ProductLoader = typeof loader;
 
-export const meta: MetaFunction = () => {
-  return [
-    { title: "Salads" },
-    { name: "description", content: "Salad Generator" },
-  ];
-};
+export async function loader() {
+  const products = await getProducts();
+  return json(products);
+}
 
-export default function Index() {
-  const saladData = useLoaderData<typeof loader>();
-
-  return (
-    <div>
-      <div className="main-section">
-        <h2 className="heading">Create a Salad</h2>
-        <SaladGenerator saladData={saladData} />
-      </div>
-      <div className="main-section">
-        <h2 className="heading">Ingredients</h2>
-        <IngredientsSection saladData={saladData} />
-      </div>
-    </div>
-  );
+export default function Products() {
+  return <ProductsPage />;
 }
