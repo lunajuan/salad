@@ -36,17 +36,20 @@ function processJsonFiles(directoryPath) {
 
 async function uploadProducts(products) {
   const uniqueProducts = _.uniqBy(products, "sku");
+  const uniqueSkus = uniqueProducts.map((product) => product.sku);
   const existingProducts = await prisma.product.findMany({
     where: {
       sku: {
-        in: uniqueProducts.map((product) => product.sku),
+        in: uniqueSkus,
       },
     },
   });
+
   const existingProductsBySku = _.keyBy(existingProducts, "sku");
 
   const data = [];
-  for (const product of products) {
+  for (const product of uniqueProducts) {
+    if (existingProductsBySku[product.sku]) continue;
     const productData = {
       sku: product.sku,
       title: product.title,
@@ -55,9 +58,7 @@ async function uploadProducts(products) {
       pricePerUnit: product.unit,
       imageUrl: product.imgSrc,
     };
-    if (!existingProductsBySku[product.sku]) {
-      data.push(productData);
-    }
+    data.push(productData);
   }
 
   await prisma.product.createMany({
