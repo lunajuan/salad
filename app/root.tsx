@@ -1,4 +1,3 @@
-import { cssBundleHref } from "@remix-run/css-bundle";
 import type { LinksFunction } from "@remix-run/node";
 import {
   Links,
@@ -8,18 +7,15 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
-import globalStyles from "./src/global.css";
-import TopNavBar, { links as topNavbarLinks } from "~/src/TopNavbar";
+import rootStylesheet from "~/root.css";
 
 export const links: LinksFunction = () => [
-  ...(cssBundleHref
-    ? [{ rel: "stylesheet", href: cssBundleHref }]
-    : [{ rel: "stylesheet", href: globalStyles }, ...topNavbarLinks()]),
+  { rel: "stylesheet", href: rootStylesheet },
 ];
 
 export default function App() {
   return (
-    <html lang="en" color-scheme="grape">
+    <html lang="en">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -27,13 +23,12 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <TopNavBar />
-        <div className="main">
+        <main className="main">
           <Outlet />
           <ScrollRestoration />
           <Scripts />
           <LiveReload />
-        </div>
+        </main>
       </body>
     </html>
   );
